@@ -35,8 +35,8 @@ Create a step that uses this function
         id: s3-sync
         uses: haukurh/aws-s3-sync-action@v1
         with:
-          source: dist/
-          destination: ${{ secrets.AWS_S3_BUCKET }}
+          directory: dist/
+          s3-bucket: ${{ secrets.AWS_S3_BUCKET }}
 ```
 
 With additional arguments...
@@ -46,8 +46,8 @@ With additional arguments...
         id: s3-sync
         uses: haukurh/aws-s3-sync-action@v1
         with:
-          source: dist/
-          destination: ${{ secrets.AWS_S3_BUCKET }}
+          directory: dist/
+          s3-bucket: ${{ secrets.AWS_S3_BUCKET }}
           args: --size-only --delete
 ```
 
@@ -59,8 +59,8 @@ With additional arguments...
         id: s3-sync
         uses: haukurh/aws-s3-sync-action@v1
         with:
-          source: dist/
-          destination: ${{ secrets.AWS_S3_BUCKET }}
+          directory: dist/
+          s3-bucket: ${{ secrets.AWS_S3_BUCKET }}
       - name: Work with output
         run: echo ${{ steps.s3-sync.outputs.stdout }}
 ```
@@ -88,8 +88,8 @@ jobs:
         id: s3-sync
         uses: haukurh/aws-s3-sync-action@v1
         with:
-          source: dist/
-          destination: ${{ secrets.AWS_S3_BUCKET }}
+          directory: dist/
+          s3-bucket: ${{ secrets.AWS_S3_BUCKET }}
           args: --size-only --delete
 
       - name: Work with output
