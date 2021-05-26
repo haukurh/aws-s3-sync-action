@@ -90,6 +90,7 @@ jobs:
         with:
           source: dist/
           destination: ${{ secrets.AWS_S3_BUCKET }}
+          args: --size-only --delete
 
       - name: Work with output
         run: echo ${{ steps.s3-sync.outputs.stdout }}
