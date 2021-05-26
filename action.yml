@@ -27,5 +27,5 @@ runs:
   using: "composite"
   steps:
     - id: sync
-      run: SYNC_OUTPUT=`aws s3 sync ${{ inputs.directory }} s3://${{ inputs.s3-bucket }}${{ inputs.path }} ${{ inputs.args }}` && echo "::set-output name=stdout::$SYNC_OUTPUT"
+      run: SYNC_OUTPUT=$(aws s3 sync ${{ inputs.directory }} s3://${{ inputs.s3-bucket }}${{ inputs.path }} --no-progress ${{ inputs.args }}) && echo "::set-output name=stdout::$SYNC_OUTPUT"
       shell: bash
