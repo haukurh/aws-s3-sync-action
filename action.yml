@@ -1,0 +1,23 @@
+name: 'AWS S3 sync'
+description: 'Runs AWS S3 sync and returns the output'
+inputs:
+  source:
+    description: 'Files to sync from'
+    required: true
+  destination:
+    description: 'Destination to sync to'
+    required: true
+  args:
+    description: 'Additional arguments for sync command'
+    required: false
+    default: ''
+outputs:
+  stdout:
+    description: 'Output of AWS S3 sync'
+    value: ${{ steps.sync.outputs.stdout }}
+runs:
+  using: "composite"
+  steps:
+    - id: sync
+      run: echo "::set-output name=stdout::$(aws s3 sync ${{ inputs.source }} ${{ inputs.destination }} ${{ inputs.args }})"
+      shell: bash
