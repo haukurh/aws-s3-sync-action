@@ -1,6 +1,6 @@
 # AWS S3 sync action
 
-A Github Action that runs AWS S3 sync command, saves the output in order to use it later on.
+A GitHub Action that runs AWS S3 sync command, saves the output in order to use it later on.
 
 ## Prerequisite
 
