@@ -1,5 +1,8 @@
-name: 'AWS S3 sync'
+name: 'AWS S3 sync w/ output'
 description: 'Runs AWS S3 sync and returns the output'
+branding:
+  icon: box
+  color: orange
 inputs:
   source:
     description: 'Files to sync from'
