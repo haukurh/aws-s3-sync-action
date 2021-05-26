@@ -1,14 +1,15 @@
 name: 'AWS S3 sync w/ output'
-description: 'Runs AWS S3 sync and returns the output'
+description: 'Sync a directory to a S3 bucket'
 branding:
   icon: box
   color: orange
 inputs:
-  source:
-    description: 'Files to sync from'
-    required: true
-  destination:
-    description: 'Destination to sync to'
+  directory:
+    description: 'Directory to sync'
+    required: false
+    default: 'dist/'
+  s3-bucket:
+    description: 'S3 bucket to sync to'
     required: true
   args:
     description: 'Additional arguments for sync command'
@@ -22,5 +23,5 @@ runs:
   using: "composite"
   steps:
     - id: sync
-      run: echo "::set-output name=stdout::$(aws s3 sync ${{ inputs.source }} ${{ inputs.destination }} ${{ inputs.args }})"
+      run: OUTPUT=$(aws s3 sync ${{ inputs.directory }} s3://${{ inputs.s3-bucket }}/ ${{ inputs.args }}) && echo "::set-output name=stdout::$OUTPUT"
       shell: bash
