@@ -11,6 +11,10 @@ inputs:
   s3-bucket:
     description: 'S3 bucket to sync to'
     required: true
+  path:
+    description: 'S3 path'
+    required: false
+    default: '/'
   args:
     description: 'Additional arguments for sync command'
     required: false
@@ -23,5 +27,5 @@ runs:
   using: "composite"
   steps:
     - id: sync
-      run: OUTPUT=$(aws s3 sync ${{ inputs.directory }} s3://${{ inputs.s3-bucket }}/ ${{ inputs.args }}) && echo "::set-output name=stdout::$OUTPUT"
+      run: OUTPUT=$(aws s3 sync ${{ inputs.directory }} s3://${{ inputs.s3-bucket }}${{ inputs.path }} ${{ inputs.args }}) && echo "::set-output name=stdout::$OUTPUT"
       shell: bash
