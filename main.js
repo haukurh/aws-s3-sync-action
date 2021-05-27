@@ -30,10 +30,10 @@ const args = [
     optionalArgs,
 ]
 
-await exec.exec('aws', args, options);
-
-if (stderr) {
-    core.setFailed(stderr);
-} else {
-    core.setOutput('stdout', stdout);
-}
+exec.exec('aws', args, options).then((r) => {
+    if (stderr) {
+        core.setFailed(stderr);
+    } else {
+        core.setOutput('stdout', stdout);
+    }
+});
