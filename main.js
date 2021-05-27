@@ -13,6 +13,7 @@ options.listeners = {
         stderr += data.toString();
     }
 };
+options.cwd = '.';
 
 //SYNC_OUTPUT=$(aws s3 sync ${{ inputs.directory }} s3://${{ inputs.s3-bucket }}${{ inputs.path }} --no-progress ${{ inputs.args }}) && echo "::set-output name=stdout::$SYNC_OUTPUT"
 
