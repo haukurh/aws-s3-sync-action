@@ -36,4 +36,7 @@ exec.exec('aws', args, options).then((r) => {
     } else {
         core.setOutput('stdout', stdout);
     }
+}).catch((e) => {
+    console.error(e);
+    core.setFailed('AWS command failed');
 });
