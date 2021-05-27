@@ -11,7 +11,7 @@ inputs:
   s3-bucket:
     description: 'S3 bucket to sync to'
     required: true
-  path:
+  s3-path:
     description: 'S3 path'
     required: false
     default: '/'
