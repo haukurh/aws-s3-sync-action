@@ -26,13 +26,38 @@ jobs:
           aws-region: eu-west-1
 ```
 
+## Inputs
+
+This action has four inputs which can be used to customize the sync.
+
+| Name      | Description                           | Required | Default |
+|-----------|---------------------------------------|----------|---------|
+| directory | Directory to sync                     | false    | dist/   |
+| s3-bucket | S3 bucket to sync to                  | true     |         |
+| s3-path   | S3 path                               | false    | /       |
+| args      | Additional arguments for sync command | false    | (empty) |
+
+## Outputs
+
+This action has only one output and that's the output from the AWS CLI sync command. 
+
+| Name   | Description                |
+|--------|----------------------------|
+| stdout | Output of the sync command |
+
+Example:
+```shell
+upload: file1 to s3://my-bucket/file1
+upload: file2 to s3://my-bucket/file2
+```
+
 ## Usage
 
 Create a step that uses this function
 
 ```yaml
-      - name: Sync to S3
-        id: s3-sync
+      - name: Sync directory to S3
+        id: s3_sync
         uses: haukurh/aws-s3-sync-action@v1
         with:
           directory: dist/
@@ -42,8 +67,8 @@ Create a step that uses this function
 With additional arguments...
 
 ```yaml
-      - name: Sync to S3
-        id: s3-sync
+      - name: Sync directory to S3
+        id: s3_sync
         uses: haukurh/aws-s3-sync-action@v1
         with:
           directory: dist/
@@ -51,12 +76,12 @@ With additional arguments...
           args: --size-only --delete
 ```
 
-## Get output
+### Get output
 
 ```yaml
     steps:
-      - name: Sync to S3
-        id: s3-sync
+      - name: Sync directory to S3
+        id: s3_sync
         uses: haukurh/aws-s3-sync-action@v1
         with:
           directory: dist/
@@ -65,17 +90,14 @@ With additional arguments...
         run: echo ${{ steps.s3-sync.outputs.stdout }}
 ```
 
-## More complete example
+### More complete example
 
 ```yaml
 jobs:
-  deploy:
-    name: Sync to S3
+  build:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout
-        uses: actions/checkout@v2
+      - uses: actions/checkout@v2
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
@@ -84,14 +106,10 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: eu-west-1
 
-      - name: Sync to S3
-        id: s3-sync
+      - name: Sync directory to S3
+        id: s3_sync
         uses: haukurh/aws-s3-sync-action@v1
         with:
           directory: dist/
           s3-bucket: ${{ secrets.AWS_S3_BUCKET }}
-          args: --size-only --delete
-
-      - name: Work with output
-        run: echo ${{ steps.s3-sync.outputs.stdout }}
 ```
