@@ -24,4 +24,4 @@ outputs:
     description: 'Output of AWS S3 sync'
 runs:
   using: 'node12'
-  main: 'index.js'
+  main: 'main.js'
