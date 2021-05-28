@@ -35,7 +35,7 @@ const args = [
 ];
 
 if (optionalArgs) {
-    args.push(optionalArgs.trim());
+    args.push(...optionalArgs.trim().split(' '));
 }
 
 exec.exec('aws', args, options).then((r) => {
